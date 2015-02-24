@@ -7,9 +7,15 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
+//useful for the motion control robot
+#import <CoreMotion/CoreMotion.h>
 
 @interface ViewController : UIViewController{
-    
+    NSOutputStream *outputS;
+    NSInputStream *inputS;
+    NSString *hostName;
+    NSString *portNumber;
+    BOOL connecting;
 }
 
 @property(nonatomic, strong) IBOutlet UIButton *buttonConnect;
@@ -21,6 +27,7 @@
 - (IBAction)doSetting:(id)sender;
 - (IBAction)doConnect:(id)sender;
 - (IBAction)linktoMainConsole:(id)sender;
+- (IBAction)doDisconnect:(id)sender;
 
 @end
 

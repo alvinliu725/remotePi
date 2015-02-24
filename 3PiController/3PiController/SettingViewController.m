@@ -9,11 +9,14 @@
 #import <Foundation/Foundation.h>
 #import "SettingViewController.h" 
 
+@interface SettingViewController()
+@end
+
 @implementation SettingViewController
 
-//- (void) viewDidLoad{
-//    [super viewDidLoad];
-//}
+- (void) viewDidLoad{
+    [super viewDidLoad];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -25,21 +28,24 @@
 }
 
 
+- (IBAction)View_TouchDown:(id)sender {
+    //resignFirstResponder. hide the keyboard when touch down
+    [[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil];
+}
+
 -(IBAction)doSave:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Save" message:@"Save Successfully" delegate:nil cancelButtonTitle:@"Done" otherButtonTitles:nil];
-    [alert show];
+
+    [self dismissViewControllerAnimated:YES completion:nil];
     //@Action todo
 }
 
 -(IBAction)doClear:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Clear" message:@"Clear Successfully" delegate:nil cancelButtonTitle:@"Done" otherButtonTitles:nil];
-    [alert show];
+
     //@Action todo
 }
 
 -(IBAction)doDefault:(id)sender{
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Default" message:@"Change to Default Successfully" delegate:nil cancelButtonTitle:@"Done" otherButtonTitles:nil];
-    [alert show];
+
     //@Action todo
 }
 

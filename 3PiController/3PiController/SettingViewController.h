@@ -20,8 +20,10 @@
 @property(nonatomic, strong) IBOutlet UITextField *port;
 @property(nonatomic, strong) IBOutlet UISlider *slider;
 @property(nonatomic, strong) IBOutlet UILabel *speed;
-//@property(nonatomic, strong) IBOutlet UISwitch *motionMode;
-//@property(nonatomic, strong) IBOutlet UILabel *motion;
+@property(nonatomic, strong) IBOutlet UISwitch *motionMode;
+@property(nonatomic, strong) IBOutlet UILabel *motion;
+
+- (IBAction)View_TouchDown:(id)sender;
 
 - (IBAction)doSave:(id)sender;
 - (IBAction)doClear:(id)sender;
