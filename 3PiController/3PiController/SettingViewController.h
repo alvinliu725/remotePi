@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h> 
 #import <Foundation/Foundation.h>
 
-@interface SettingViewController: UIViewController {
+@interface SettingViewController: UIViewController <UINavigationControllerDelegate>{
     
 }
+
 
 @property(nonatomic, strong) IBOutlet UIButton *btSave;
 @property(nonatomic, strong) IBOutlet UIButton *btClear;

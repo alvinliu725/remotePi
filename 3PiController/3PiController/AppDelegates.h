@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
-@interface AppDelegates : NSObject <UIApplicationDelegate>{
+@interface AppDelegates : NSObject <UIApplicationDelegate> {
     UIWindow *window;
     UINavigationController *navigationController;
 }

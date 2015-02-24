@@ -50,6 +50,8 @@
     [self performSelector:@selector(ConnectionWait:) withObject:nil];
 }
 
+- (IBAction)doDisconnect:(id)sender {
+}
 
 - (IBAction)linktoMainConsole:(id)sender{
     MainConsoleController *mainConsoleController = [[MainConsoleController alloc] initWithNibName:@"mainConsole" bundle:nil];

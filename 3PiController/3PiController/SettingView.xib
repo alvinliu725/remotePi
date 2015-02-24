@@ -6,6 +6,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SettingViewController">
             <connections>
+                <outlet property="btClear" destination="fNd-cl-kDo" id="DGg-qw-lFh"/>
+                <outlet property="btDefault" destination="J8B-jq-iTf" id="p4N-kq-vdR"/>
+                <outlet property="btSave" destination="f5e-Tu-XgD" id="oym-Y7-GEQ"/>
                 <outlet property="ip" destination="s66-at-Alx" id="2Gz-QG-VpQ"/>
                 <outlet property="motion" destination="bvN-J4-p00" id="Mh5-wG-ygF"/>
                 <outlet property="port" destination="qCA-RC-bbq" id="1Kg-4d-2UD"/>
