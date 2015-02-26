@@ -66,9 +66,9 @@
     if ([outputS streamStatus] == NSStreamStatusOpen) {
         [self.connStatus performSelectorOnMainThread:@selector(setText:) withObject:[NSString stringWithFormat:@"Connected to %@:%@", hostName, portNumber] waitUntilDone:YES];
     } else if ([outputS streamStatus] == NSStreamStatusError) {
-        [self.connStatus performSelectorOnMainThread:@selector(setText:) withObject:@"Could not connect to MovingRaspi" waitUntilDone:YES];
+        [self.connStatus performSelectorOnMainThread:@selector(setText:) withObject:@"Could not connect to Pi" waitUntilDone:YES];
     } else {
-        [self.connStatus performSelectorOnMainThread:@selector(setText:) withObject:@"Not connected to MovingRaspi" waitUntilDone:YES];
+        [self.connStatus performSelectorOnMainThread:@selector(setText:) withObject:@"Not connected to Pi" waitUntilDone:YES];
     }
 }
 
