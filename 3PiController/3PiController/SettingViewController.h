@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h> 
 #import <Foundation/Foundation.h>
-
+#import "ViewController.h"
 @interface SettingViewController: UIViewController <UINavigationControllerDelegate>{
     
 }

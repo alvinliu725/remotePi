@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-
-@interface MainConsoleController: UIViewController{
+#import "ViewController.h"
+@interface MainConsoleController: UIViewController <NSStreamDelegate>{
     
 }
 

@@ -10,7 +10,7 @@
 //useful for the motion control robot
 #import <CoreMotion/CoreMotion.h>
 
-@interface ViewController : UIViewController{
+@interface ViewController : UIViewController <NSStreamDelegate> {
     NSOutputStream *outputS;
     NSInputStream *inputS;
     NSString *hostName;
@@ -22,7 +22,10 @@
 @property(nonatomic, strong) IBOutlet UIButton *buttonMainConsole;
 @property(nonatomic, strong) IBOutlet UIButton *buttonSetting;
 @property(nonatomic, strong) IBOutlet UILabel *connStatus;
-
+@property(nonatomic, strong) NSInputStream *inputS;
+@property(nonatomic, strong) NSOutputStream *ouputS;
+@property(nonatomic, strong) NSString *hostName;
+@property(nonatomic, strong) NSString *portNumber;
 
 - (IBAction)doSetting:(id)sender;
 - (IBAction)doConnect:(id)sender;

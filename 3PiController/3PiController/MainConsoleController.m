@@ -10,6 +10,7 @@
 #import "MainConsoleController.h"
 
 @implementation MainConsoleController
+@class ViewController;
 
 
 - (void)viewDidLoad {
@@ -31,26 +32,35 @@
 
 
 -(IBAction)goUp:(id)sender{
-    
+    [self sendCommand:@"forward"];
+    NSLog(@"forward");
 }
 
 -(IBAction)goDown:(id)sender{
-    
+    [self sendCommand:@"back"];
+    NSLog(@"back");
 }
 
 -(IBAction)goLeft:(id)sender{
-    
+    [self sendCommand:@"left"];
+    NSLog(@"left");
 }
 
 -(IBAction)goRight:(id)sender{
-    
+    [self sendCommand:@"right"];
+    NSLog(@"right");
 }
 
 -(IBAction)stop:(id)sender{
-    
+    [self sendCommand:@"stop"];
+    NSLog(@"stop");
 }
 
-
+- (void) sendCommand: (NSString *) command{
+    ViewController *viewController = [[ViewController alloc]init];
+    NSData *data = [[NSData alloc] initWithData:[command dataUsingEncoding:NSASCIIStringEncoding]];
+    [viewController.ouputS write:[data bytes] maxLength:[data length]];
+}
 
 @end
 

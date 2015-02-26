@@ -12,9 +12,6 @@
 #import "SettingViewController.h"
 #import "MainConsoleController.h"
 
-@interface ViewController ()
-
-@end
 
 @implementation ViewController
 
@@ -25,6 +22,18 @@
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Main Page" style:UIBarButtonItemStylePlain target:nil action:nil];
     self.navigationItem.backBarButtonItem = backButton;
     [self.connStatus setText:@"Not Connected"];
+}
+
+- (void) viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    //load the ip address and port number which is saved by user
+    
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"3pi.ipAddress"] != nil) {
+        hostName = [[NSUserDefaults standardUserDefaults] objectForKey:@"3pi.ipAddress"];
+    }
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:@"3pi.portNumber"] != nil) {
+        portNumber = [[NSUserDefaults standardUserDefaults] objectForKey:@"3pi.portNumber"];
+    }
 }
 
 //release any cached data, release the view
@@ -43,14 +52,24 @@
 }
 
 - (IBAction)doConnect:(id)sender {
-    connecting = YES;
-    [self doDisconnect:nil];
     [self initializeNetworkComm];
     [self.connStatus setText:@"Connecting...."];
-    [self performSelector:@selector(ConnectionWait:) withObject:nil];
-}
-
-- (IBAction)doDisconnect:(id)sender {
+    NSString *response  = [NSString stringWithFormat:@"Testing connection"];
+    NSData *data = [[NSData alloc] initWithData:[response dataUsingEncoding:NSASCIIStringEncoding]];
+    [outputS write:[data bytes] maxLength:[data length]];
+    
+    NSLog(@"%@, %@", hostName, portNumber);
+    
+    while (([outputS streamStatus] != NSStreamStatusOpen && [outputS streamStatus] != NSStreamStatusError)) {
+        [self.connStatus performSelectorOnMainThread:@selector(setText:) withObject:@"Connection in progress…" waitUntilDone:YES];
+    }
+    if ([outputS streamStatus] == NSStreamStatusOpen) {
+        [self.connStatus performSelectorOnMainThread:@selector(setText:) withObject:[NSString stringWithFormat:@"Connected to %@:%@", hostName, portNumber] waitUntilDone:YES];
+    } else if ([outputS streamStatus] == NSStreamStatusError) {
+        [self.connStatus performSelectorOnMainThread:@selector(setText:) withObject:@"Could not connect to MovingRaspi" waitUntilDone:YES];
+    } else {
+        [self.connStatus performSelectorOnMainThread:@selector(setText:) withObject:@"Not connected to MovingRaspi" waitUntilDone:YES];
+    }
 }
 
 - (IBAction)linktoMainConsole:(id)sender{
@@ -60,33 +79,18 @@
 }
 
 
-
 - (void)initializeNetworkComm {
     CFReadStreamRef readS;
     CFWriteStreamRef writeS;
     CFStreamCreatePairWithSocketToHost(NULL, (CFStringRef) CFBridgingRetain(hostName), [portNumber intValue], &readS, &writeS);
-    outputS = (NSOutputStream *) CFBridgingRelease(writeS);
+    inputS = (__bridge NSInputStream *) readS;
+    outputS = (__bridge NSOutputStream *) writeS;
+    [inputS setDelegate:self];
+    [outputS setDelegate:self];
+    [inputS scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     [outputS scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
+    [inputS open];
     [outputS open];
-}
-
-
-- (void)ConnectionWait:(id) sender{
-    @autoreleasepool {
-        while(([outputS streamStatus] != NSStreamStatusOpen && [outputS streamStatus] != NSStreamStatusError) && connecting){
-            [self.connStatus performSelectorOnMainThread:@selector(setText:) withObject:@"Connecting..." waitUntilDone:YES];
-        }
-        if([outputS streamStatus] == NSStreamStatusOpen){
-            [self.connStatus performSelectorOnMainThread:@selector(setText:) withObject:[NSString stringWithFormat:@"Connected to %@:%@:", hostName, portNumber] waitUntilDone:YES];
-        }
-        else if([outputS streamStatus] == NSStreamStatusError){
-            [self.connStatus performSelectorOnMainThread:@selector(setText:) withObject: @"Error! Check!" waitUntilDone:YES];
-        }
-        else{
-            [self.connStatus performSelectorOnMainThread:@selector(setText:) withObject:@"Not connected" waitUntilDone:YES];
-        }
-        
-    }
 }
 
 @end
